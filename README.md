@@ -22,6 +22,8 @@ A containerized full-stack demo application showcasing **Object-Oriented Program
 
 ### With Docker (Recommended)
 ```bash
+git clone https://github.com/wa7med/itsm-fullstack-demo.git
+cd itsm-fullstack-demo
 docker-compose up --build
 ```
 - **Frontend**: http://localhost:3000
