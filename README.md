@@ -139,7 +139,7 @@ Tests cover:
 ## Project Structure
 
 ```
-servicenow_itsm/
+itsm-demo/
 ├── backend/
 │   ├── src/main/java/com/demo/itsm/
 │   │   ├── model/          # Domain model (OOP showcase)
