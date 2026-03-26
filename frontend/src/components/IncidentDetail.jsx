@@ -10,6 +10,7 @@ function IncidentDetail() {
   const [resolveNotes, setResolveNotes] = useState('')
   const [showResolve, setShowResolve] = useState(false)
   const [error, setError] = useState(null)
+  const [confirmDelete, setConfirmDelete] = useState(false)
 
   useEffect(() => {
     loadIncident()
@@ -54,7 +55,6 @@ function IncidentDetail() {
   }
 
   const handleDelete = async () => {
-    if (!window.confirm('Delete this incident?')) return
     try {
       await api.delete(id)
       navigate('/incidents')
@@ -72,7 +72,6 @@ function IncidentDetail() {
         <h2>{incident.number}</h2>
         <div className="header-actions">
           <Link to={`/incidents/${id}/edit`} className="btn btn-secondary">Edit</Link>
-          <button onClick={handleDelete} className="btn btn-danger">Delete</button>
           <Link to="/incidents" className="btn btn-secondary">Back to List</Link>
         </div>
       </div>
@@ -199,6 +198,19 @@ function IncidentDetail() {
             </div>
           )}
         </div>
+      </div>
+
+      <div className="danger-zone">
+        <h4>Danger Zone</h4>
+        {!confirmDelete ? (
+          <button onClick={() => setConfirmDelete(true)} className="btn btn-outline-danger">Delete this incident</button>
+        ) : (
+          <div className="confirm-delete">
+            <p>Are you sure? This action cannot be undone.</p>
+            <button onClick={handleDelete} className="btn btn-danger">Yes, delete permanently</button>
+            <button onClick={() => setConfirmDelete(false)} className="btn btn-secondary">Cancel</button>
+          </div>
+        )}
       </div>
     </div>
   )

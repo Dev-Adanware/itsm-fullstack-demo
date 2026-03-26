@@ -48,6 +48,12 @@ public class DataSeeder implements CommandLineRunner {
 
         createIncident("INC0000008", "Outlook crashes on startup", "Outlook 365 crashes immediately after launching for several users.",
                 Priority.MODERATE, IncidentState.RESOLVED, "Software", "Email", "Helen White", "Desktop Support", "Tom Harris");
+
+        createIncident("INC0000009", "Badge access not working", "Employee badge denied at building B entrance after system update.",
+                Priority.HIGH, IncidentState.NEW, "Hardware", "Access Control", "Ian Clarke", "Facilities", null);
+
+        createIncident("INC0000010", "Shared drive permissions error", "Marketing team unable to access shared drive after migration.",
+                Priority.MODERATE, IncidentState.IN_PROGRESS, "Software", "File Storage", "Julia Park", "IT Infrastructure", "Kevin Ross");
     }
 
     private void createIncident(String number, String shortDesc, String desc,

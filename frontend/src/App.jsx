@@ -21,7 +21,7 @@ function App() {
             <circle cx="12" cy="12" r="10" />
             <path d="M12 6v6l4 2" />
           </svg>
-          <h1>ServiceNow ITSM</h1>
+          <h1>ITSM Demo</h1>
         </div>
         <nav className="header-nav">
           <Link to="/" className={isActive('/') && !isActive('/incidents') ? 'active' : ''}>Dashboard</Link>
@@ -41,7 +41,7 @@ function App() {
       </main>
 
       <footer className="footer">
-        <p>ServiceNow ITSM Demo &mdash; OOP Principles Showcase</p>
+        <p>ITSM Demo &mdash; OOP Principles Showcase</p>
       </footer>
     </div>
   )

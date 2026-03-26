@@ -84,8 +84,8 @@ function IncidentList() {
                   <td>{inc.assignedTo || '—'}</td>
                   <td>{inc.slaHours}</td>
                   <td className="actions">
+                    <Link to={`/incidents/${inc.id}`} className="btn btn-small">View</Link>
                     <Link to={`/incidents/${inc.id}/edit`} className="btn btn-small">Edit</Link>
-                    <button onClick={() => handleDelete(inc.id)} className="btn btn-small btn-danger">Delete</button>
                   </td>
                 </tr>
               ))
