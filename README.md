@@ -1,12 +1,18 @@
-# ServiceNow ITSM - Incident Management System
+# ITSM Demo — Incident Management System
 
-A containerized full-stack demo application showcasing **Object-Oriented Programming principles** through a ServiceNow-style Incident Management System.
+A containerized full-stack demo application showcasing **Object-Oriented Programming principles** through an Incident Management System inspired by enterprise ITSM platforms.
+
+## Screenshots
+
+| Dashboard | Incident List | Create Form |
+|-----------|--------------|-------------|
+| ![Dashboard](docs/screenshots/dashboard.png) | ![Incidents](docs/screenshots/incident-list.png) | ![Create](docs/screenshots/create-form.png) |
 
 ## Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
-| **Backend** | Java 17, Spring Boot 3.2, Spring Data JPA |
+| **Backend** | Java 21, Spring Boot 3.2, Spring Data JPA |
 | **Database** | SQLite (via sqlite-jdbc + Hibernate Community Dialects) |
 | **API Docs** | Swagger / OpenAPI 3 (springdoc-openapi) |
 | **Frontend** | React 18, Vite, React Router, Plain CSS |
@@ -40,7 +46,7 @@ npm run dev
 ## OOP Principles Demonstrated
 
 ### 1. Abstraction
-Abstract classes hide implementation details and expose only essential features.
+In a real ITSM system, incidents, change requests, and problems share common structure (IDs, timestamps, descriptions) but differ in behavior. Rather than duplicating that shared logic, abstract classes define the contract once and let each ticket type fill in the specifics.
 
 | Class | Purpose |
 |-------|---------|
@@ -51,7 +57,7 @@ Abstract classes hide implementation details and expose only essential features.
 **Key code**: `BaseEntity.java`, `Ticket.java`, `TicketService.java`
 
 ### 2. Inheritance
-Class hierarchy enables code reuse and specialization.
+The domain naturally forms a hierarchy: every incident *is a* ticket, and every ticket *is an* entity. Inheritance lets `Incident` reuse all of `Ticket`'s fields and behavior while adding its own state machine and SLA logic — exactly how you'd model this in a production codebase.
 
 ```
 BaseEntity (abstract)
@@ -64,7 +70,7 @@ TicketService<T> (abstract)
 ```
 
 ### 3. Polymorphism
-Same interface, different behavior depending on the concrete type.
+The service layer shouldn't care whether it's handling an incident or a change request — it just calls `getSlaHours()` and gets the right answer. This is where polymorphism pays off: the same method call produces different behavior depending on the concrete type, and the Strategy pattern lets us swap state-transition rules without touching the service.
 
 | Type | Example |
 |------|---------|
@@ -74,7 +80,7 @@ Same interface, different behavior depending on the concrete type.
 | **Template Method** | `TicketService.create()` defines algorithm, subclasses customize via hooks |
 
 ### 4. Encapsulation
-Data hiding and controlled access to internal state.
+The API never exposes the domain model directly. DTOs act as a contract boundary — the frontend sees `IncidentResponse`, not `Incident`. This means the internal model can evolve (e.g., adding audit fields) without breaking the API contract.
 
 | Technique | Where |
 |-----------|-------|
